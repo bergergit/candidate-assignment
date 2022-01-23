@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Competitions</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-button 
+      fill="outline" 
+      size="small" 
+      slot="end" 
+      (click)="selectSeason()" 
+      id="selectSeasonButton"
+    >Select season</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div *ngIf="!seasonSelected" class="ion-text-center">
+    <h3>Please select a season</h3>
+  </div>
+
+  <ng-template #loading>
+    <ion-spinner *ngIf="seasonSelected"></ion-spinner>
+  </ng-template>
+
+  <div *ngIf="(competitions$ | async) as competitions; else loading">
+    <h3 *ngIf="competitions.length === 0">No competitions found for this season</h3>
+    <ion-list>
+      <ion-item *ngFor="let competition of competitions" button (click)="showTeams(competition)">
+        <img [src]="competition.emblemUrl || '/assets/icon/soccer.svg'" class="ensign">
+        <ion-label>
+          {{ competition.name }}
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

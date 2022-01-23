@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.fabioberger.pingertakehome',
   appName: 'candidate-assignment',
   webDir: 'www',
   bundledWebRuntime: false

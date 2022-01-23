@@ -1,0 +1,6 @@
+{
+	"appId": "com.fabioberger.pingertakehome",
+	"appName": "candidate-assignment",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

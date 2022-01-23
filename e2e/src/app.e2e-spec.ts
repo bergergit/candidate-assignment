@@ -1,17 +1,41 @@
-import { AppPage } from './app.po';
+import { browser } from 'protractor';
+import { CompetitionsPage } from './competitions.po';
+import { RootPage } from './root.po';
 
-describe('new App', () => {
-  let page: AppPage;
+describe('When App is opened', () => {
+  const rootPage = new RootPage();
+  const competitionsPage = new CompetitionsPage();
 
   beforeEach(() => {
-    page = new AppPage();
+    browser.waitForAngularEnabled(false);
+    rootPage.load();
   });
-  describe('default screen', () => {
-    beforeEach(() => {
-      page.navigateTo('/Inbox');
+
+  it('should say Competitions', async () => {
+    rootPage.waitUntilVisible();
+    const pageTitle = await rootPage.getTitle();
+    expect(pageTitle).toBe('Competitions');
+  });
+
+  describe('Competitions screen', () => {
+    beforeEach(async () => {
+      await rootPage.navigateTo('/competitions');
     });
-    it('should say Inbox', () => {
-      expect(page.getParagraphText()).toContain('Inbox');
+
+    it('should display the main Competitions element', async () => {
+      const isDisplayed = await (competitionsPage.rootElement().isDisplayed());
+      expect(isDisplayed).toEqual(true);
+    });
+
+    it('should show a list of Competitions after selecting a season', async () => {
+      await competitionsPage.clickButton('selectSeasonButton');
+      await competitionsPage.waitForActionSheetToBeVisible();
+      const actionSheetButtons = await competitionsPage.actionSheetButtons();
+      browser.executeScript('arguments[0].click();', actionSheetButtons[4].getWebElement());
+      await competitionsPage.waitForCompetitionsToBeVisible();
+      const competitionListLength = (await competitionsPage.competitionList()).length;
+      expect(competitionListLength).toBeGreaterThanOrEqual(5);
+
     });
   });
 });
