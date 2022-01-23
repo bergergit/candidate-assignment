@@ -27,3 +27,8 @@ I've implemented some Unit Tests. You can run them with `npm test`
 I've also implemented a couple of tests using Protractor. It's testing the main competition list page.
 
 Run them with `npm run e2e`
+
+
+# Demonstration video:
+https://user-images.githubusercontent.com/2439082/150681772-f06f82e2-63ea-4b13-a648-780a8664553b.mov
+
